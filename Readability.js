@@ -1572,9 +1572,8 @@ Readability.prototype = {
     // This is done to prevent a placeholder img is replaced by img from noscript in next step.
     var imgs = Array.from(doc.getElementsByTagName("img"));
     this._forEachNode(imgs, function(img) {
-      for (var i = 0; i < img.attributes.length; i++) {
-        var attr = img.attributes[i];
-        switch (attr.name) {
+      for (var [key, value] of Object.entries(img.attributes)) {
+        switch (key) {
           case "src":
           case "srcset":
           case "data-src":
@@ -1582,7 +1581,7 @@ Readability.prototype = {
             return;
         }
 
-        if (/\.(jpg|jpeg|png|webp)/i.test(attr.value)) {
+        if (/\.(jpg|jpeg|png|webp)/i.test(value)) {
           return;
         }
       }
